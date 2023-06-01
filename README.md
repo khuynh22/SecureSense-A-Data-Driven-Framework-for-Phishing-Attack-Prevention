@@ -7,7 +7,7 @@
 #### 1. Introduction:
 <ul>
   <li>This is my Bachelors of Science Degree Capstone Project, where I apply my the theory of my Computer Science - Machine Learning Major and Business Analytics Minors</li>
-  <li>Tea</li>
-  <li>Milk</li>
+  <li>As the rising trend of Phishing Attacks within the scope of UIC Student, I decided to build a data frames of machine learnings models with the hope to use technology to punish technology criminals!/li>
+  <li>There are three ML models has been accomplished, and the website are on the process of building into production. I am planning to release the project within 2024.</li>
 </ul>
 
