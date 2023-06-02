@@ -11,3 +11,13 @@
   <li>There are three ML models has been accomplished, and the website are on the process of building into production. I am planning to release the project within 2024.</li>
 </ul>
 
+#### 2. Methodology:
+The models was build based on the dataset Phishing Legitimate Full.csv from Mendeley Data, with 10,000 data points from 5000 legitimate webpages and 5000 phishing webpages with 48 websites features to analyze
+
+The project use three main Machine Learning model to build, including:
+<ul>
+  <li>Decision Tree Model</li>
+  <li>Logistics Regression Model</li>
+  <li>Random Forest Classification Model</li>
+</ul>
+
