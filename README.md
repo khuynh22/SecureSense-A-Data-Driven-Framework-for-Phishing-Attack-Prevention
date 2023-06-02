@@ -32,10 +32,10 @@ After train the model and test it using the database, here are the result of the
 
 Briefly saying, all three models provides a great outcomes, with the best model (in term of numbers from Random Forest). However, based on the reality of running the models, as well as the theoretical point of Random Forest Model (which basically run multiples of Decision Tree in runtime). Therefore, in further step of putting the model into production, Decision Tree Model could be considered for it efficient in runtime.
 
-### 4. Further Steps:
+#### 4. Further Steps:
 I am working with two other members of my team in other to develop the website where the user can input the webpage URL, and we can use NLP Model and Web Scraping to transform all the necessary features into our ML Model. After that, the data point can be process through our ML Model and output the result.
 
 Our team are at the processed of developing the wireframe using Figma, and hopefully can make this project into production within 2024.
 
-### 5. Acknowledgements
+#### 5. Acknowledgements
 This work has been conducted under the supervising of Professor Mitchell Theys and feedback from Professor Xinhua Zhang from the Department of Computer Science at UIC.
