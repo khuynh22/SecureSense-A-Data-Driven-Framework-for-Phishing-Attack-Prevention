@@ -249,7 +249,7 @@ If you use this framework in your research, please cite:
 ```bibtex
 @software{SecureSense2023,
   title={SecureSense: A Data-Driven Framework for Phishing Attack Prevention},
-  author={Huynh, Khoa},
+  author={Huynh},
   year={2023},
   institution={University of Illinois Chicago},
   note={UIC Engineering Expo 2023 Best in Show Winner}
