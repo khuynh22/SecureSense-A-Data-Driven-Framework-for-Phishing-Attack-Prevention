@@ -175,17 +175,17 @@
 
     <script>
         // Render comparison chart
-        const comparisonData = {{ plots.comparison | safe }};
+        const comparisonData = {{ plots.comparison | tojson }};
         Plotly.newPlot('comparisonChart', comparisonData.data, comparisonData.layout, {responsive: true});
 
         // Render confusion matrices
-        const cmDecisionTree = {{ plots.cm_decision_tree | safe }};
+        const cmDecisionTree = {{ plots.cm_decision_tree | tojson }};
         Plotly.newPlot('cmDecisionTree', cmDecisionTree.data, cmDecisionTree.layout, {responsive: true});
 
-        const cmLogisticRegression = {{ plots.cm_logistic_regression | safe }};
+        const cmLogisticRegression = {{ plots.cm_logistic_regression | tojson }};
         Plotly.newPlot('cmLogisticRegression', cmLogisticRegression.data, cmLogisticRegression.layout, {responsive: true});
 
-        const cmRandomForest = {{ plots.cm_random_forest | safe }};
+        const cmRandomForest = {{ plots.cm_random_forest | tojson }};
         Plotly.newPlot('cmRandomForest', cmRandomForest.data, cmRandomForest.layout, {responsive: true});
     </script>
 </body>
