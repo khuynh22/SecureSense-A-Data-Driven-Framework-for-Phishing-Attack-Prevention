@@ -17,6 +17,7 @@
     --bg-light: #f5f5f5;
     --bg-white: #ffffff;
     --border-color: #e0e0e0;
+    --shadow: 0 2px 8px rgba(0,0,0,0.1);
     --shadow-hover: 0 4px 16px rgba(0,0,0,0.15);
 }
 
