@@ -184,9 +184,7 @@ clf.fit(X, y)
 prediction = clf.predict(new_website_features)
 ```
 
-### Option 2: Running Jupyter Notebooks
-
-#### Option 3: Web Application
+#### Option 2: Web Application
 
 1. **Start the server:**
    ```bash
@@ -195,6 +193,8 @@ prediction = clf.predict(new_website_features)
 
 2. **Open your browser:**
    Navigate to: `http://127.0.0.1:5000`
+
+### Running Jupyter Notebooks
 
 ```bash
 jupyter notebook Decision_Tree_for_Phishing_Attack.ipynb
