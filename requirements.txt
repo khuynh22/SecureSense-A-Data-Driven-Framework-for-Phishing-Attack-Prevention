@@ -1,0 +1,25 @@
+# Core Dependencies
+Flask==3.0.0
+Werkzeug==3.0.1
+
+# Data Processing
+pandas>=2.2.0
+numpy>=1.26.0
+
+# Machine Learning
+scikit-learn>=1.3.0
+joblib>=1.3.0
+
+# Visualization
+plotly>=5.18.0
+matplotlib>=3.8.0
+seaborn>=0.13.0
+
+# Jupyter Notebook Support (optional, for .ipynb files)
+jupyter==1.0.0
+notebook==7.0.6
+ipykernel==6.27.1
+
+# Additional utilities
+python-dateutil==2.8.2
+pytz==2023.3

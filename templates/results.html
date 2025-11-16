@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Results - Secure Sense</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <svg width="50" height="50" viewBox="0 0 50 50">
+                    <circle cx="25" cy="25" r="23" fill="#ffffff" opacity="0.3"/>
+                    <path d="M25 10 L25 40 M10 25 L40 25" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+                    <circle cx="25" cy="25" r="8" fill="none" stroke="#ffffff" stroke-width="3"/>
+                </svg>
+                <h1>Secure Sense</h1>
+            </div>
+            <p class="subtitle">A Data-Driven Framework for Phishing Attack Prevention</p>
+        </header>
+
+
+        <a href="https://cs.uic.edu/news-stories/award-winning-cs-teams-at-uics-engineering-expo/" target="_blank" class="award-banner-link">
+            <div class="award-banner">
+                <span class="trophy">🏆</span>
+                <span>Winner: UIC Engineering Expo 2023 Best in Show Award</span>
+            </div>
+        </a>
+
+        <main>
+            <div class="results-header">
+                <a href="/" class="back-button">← Upload New Dataset</a>
+                <h2>Model Performance Analysis</h2>
+            </div>
+
+            <!-- Dataset Summary -->
+            <div class="summary-section">
+                <h3>Dataset Summary</h3>
+                <div class="summary-grid">
+                    <div class="summary-card">
+                        <div class="summary-icon">📊</div>
+                        <div class="summary-value">{{ results.test_data.total_samples }}</div>
+                        <div class="summary-label">Test Samples</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-icon">🎣</div>
+                        <div class="summary-value">{{ results.test_data.phishing_samples }}</div>
+                        <div class="summary-label">Phishing Sites</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-icon">✅</div>
+                        <div class="summary-value">{{ results.test_data.legitimate_samples }}</div>
+                        <div class="summary-label">Legitimate Sites</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Model Comparison Chart -->
+            <div class="chart-section">
+                <h3>Model Performance Comparison</h3>
+                <div id="comparisonChart" class="chart-container"></div>
+            </div>
+
+            <!-- Model Results Cards -->
+            <div class="models-section">
+                <h3>Detailed Model Results</h3>
+
+                <!-- Decision Tree -->
+                <div class="model-card">
+                    <div class="model-header">
+                        <h4>🌳 Decision Tree Classifier</h4>
+                        <span class="model-badge">Optimized with CCP Pruning</span>
+                    </div>
+                    <div class="metrics-grid">
+                        <div class="metric">
+                            <span class="metric-label">Accuracy</span>
+                            <span class="metric-value">{{ "%.2f"|format(results.decision_tree.accuracy * 100) }}%</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Precision</span>
+                            <span class="metric-value">{{ "%.2f"|format(results.decision_tree.precision * 100) }}%</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Recall</span>
+                            <span class="metric-value">{{ "%.2f"|format(results.decision_tree.recall * 100) }}%</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">F1 Score</span>
+                            <span class="metric-value">{{ "%.4f"|format(results.decision_tree.f1_score) }}</span>
+                        </div>
+                    </div>
+                    <div id="cmDecisionTree" class="chart-container"></div>
+                </div>
+
+                <!-- Logistic Regression -->
+                <div class="model-card">
+                    <div class="model-header">
+                        <h4>📈 Logistic Regression</h4>
+                        <span class="model-badge">Linear Classification</span>
+                    </div>
+                    <div class="metrics-grid">
+                        <div class="metric">
+                            <span class="metric-label">Accuracy</span>
+                            <span class="metric-value">{{ "%.2f"|format(results.logistic_regression.accuracy * 100) }}%</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Precision</span>
+                            <span class="metric-value">{{ "%.2f"|format(results.logistic_regression.precision * 100) }}%</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Recall</span>
+                            <span class="metric-value">{{ "%.2f"|format(results.logistic_regression.recall * 100) }}%</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">F1 Score</span>
+                            <span class="metric-value">{{ "%.4f"|format(results.logistic_regression.f1_score) }}</span>
+                        </div>
+                    </div>
+                    <div id="cmLogisticRegression" class="chart-container"></div>
+                </div>
+
+                <!-- Random Forest -->
+                <div class="model-card">
+                    <div class="model-header">
+                        <h4>🌲 Random Forest Classifier</h4>
+                        <span class="model-badge best-model">Best Performance</span>
+                    </div>
+                    <div class="metrics-grid">
+                        <div class="metric">
+                            <span class="metric-label">Accuracy</span>
+                            <span class="metric-value">{{ "%.2f"|format(results.random_forest.accuracy * 100) }}%</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Precision</span>
+                            <span class="metric-value">{{ "%.2f"|format(results.random_forest.precision * 100) }}%</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Recall</span>
+                            <span class="metric-value">{{ "%.2f"|format(results.random_forest.recall * 100) }}%</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">F1 Score</span>
+                            <span class="metric-value">{{ "%.4f"|format(results.random_forest.f1_score) }}</span>
+                        </div>
+                    </div>
+                    <div id="cmRandomForest" class="chart-container"></div>
+                </div>
+            </div>
+
+            <!-- Key Insights -->
+            <div class="insights-section">
+                <h3>Key Insights</h3>
+                <div class="insights-grid">
+                    <div class="insight-card">
+                        <div class="insight-icon">🎯</div>
+                        <h4>High Accuracy</h4>
+                        <p>All models achieved over 90% accuracy, demonstrating strong phishing detection capabilities.</p>
+                    </div>
+                    <div class="insight-card">
+                        <div class="insight-icon">⚖️</div>
+                        <h4>Balanced Performance</h4>
+                        <p>Similar precision and recall scores indicate balanced detection of both phishing and legitimate sites.</p>
+                    </div>
+                    <div class="insight-card">
+                        <div class="insight-icon">🚀</div>
+                        <h4>Production Ready</h4>
+                        <p>These models can be deployed for real-time phishing detection in production environments.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Render comparison chart
+        const comparisonData = {{ plots.comparison | tojson }};
+        Plotly.newPlot('comparisonChart', comparisonData.data, comparisonData.layout, {responsive: true});
+
+        // Render confusion matrices
+        const cmDecisionTree = {{ plots.cm_decision_tree | tojson }};
+        Plotly.newPlot('cmDecisionTree', cmDecisionTree.data, cmDecisionTree.layout, {responsive: true});
+
+        const cmLogisticRegression = {{ plots.cm_logistic_regression | tojson }};
+        Plotly.newPlot('cmLogisticRegression', cmLogisticRegression.data, cmLogisticRegression.layout, {responsive: true});
+
+        const cmRandomForest = {{ plots.cm_random_forest | tojson }};
+        Plotly.newPlot('cmRandomForest', cmRandomForest.data, cmRandomForest.layout, {responsive: true});
+    </script>
+</body>
+</html>
