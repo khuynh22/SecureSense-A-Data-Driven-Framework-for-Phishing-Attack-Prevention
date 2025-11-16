@@ -35,7 +35,7 @@ def train_models(data):
     """Train all three models and return them with performance metrics"""
     # Prepare data
     if 'CLASS_LABEL' in data.columns:
-        data.rename(columns={'CLASS_LABEL': 'labels'}, inplace=True)
+        data = data.rename(columns={'CLASS_LABEL': 'labels'})
 
     # Separate features and labels
     X = data.drop(['labels'], axis=1)
