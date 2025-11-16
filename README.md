@@ -44,7 +44,7 @@ This project implements and compares three state-of-the-art classification algor
 - **Algorithm**: CART (Classification and Regression Trees) with Gini impurity
 - **Training Accuracy**: 94.61%
 - **Test Accuracy**: 94.35%
-- **Key Advantages**: 
+- **Key Advantages**:
   - Fast inference time ideal for production
   - Interpretable decision paths
   - No feature scaling required
@@ -163,6 +163,8 @@ pip install numpy pandas scikit-learn matplotlib seaborn
 
 ### Quick Start
 
+#### Option 1: Python Script
+
 ```python
 # Load and prepare data
 import pandas as pd
@@ -183,6 +185,24 @@ prediction = clf.predict(new_website_features)
 ```
 
 ### Running Jupyter Notebooks
+
+#### Option 2: Web Application
+
+1. **Start the server:**
+   ```bash
+   .venv/bin/python app.py
+   ```
+
+2. **Open your browser:**
+   Navigate to: `http://127.0.0.1:5000`
+
+3. **Upload your dataset:**
+   - Click "Browse Files" or drag and drop your CSV file
+   - The CSV must contain a `CLASS_LABEL` or `labels` column with values 0 (legitimate) and 1 (phishing)
+   - Click "Analyze Dataset" to train models and see results
+
+4. **View results:**
+   - Interactive charts and detailed metrics will be displayed for Decision Tree, Logistic Regression, and Random Forest models
 
 ```bash
 jupyter notebook Decision_Tree_for_Phishing_Attack.ipynb
