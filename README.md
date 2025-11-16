@@ -184,9 +184,9 @@ clf.fit(X, y)
 prediction = clf.predict(new_website_features)
 ```
 
-### Running Jupyter Notebooks
+### Option 2: Running Jupyter Notebooks
 
-#### Option 2: Web Application
+#### Option 3: Web Application
 
 1. **Start the server:**
    ```bash
@@ -195,14 +195,6 @@ prediction = clf.predict(new_website_features)
 
 2. **Open your browser:**
    Navigate to: `http://127.0.0.1:5000`
-
-3. **Upload your dataset:**
-   - Click "Browse Files" or drag and drop your CSV file
-   - The CSV must contain a `CLASS_LABEL` or `labels` column with values 0 (legitimate) and 1 (phishing)
-   - Click "Analyze Dataset" to train models and see results
-
-4. **View results:**
-   - Interactive charts and detailed metrics will be displayed for Decision Tree, Logistic Regression, and Random Forest models
 
 ```bash
 jupyter notebook Decision_Tree_for_Phishing_Attack.ipynb
