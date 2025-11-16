@@ -5,17 +5,28 @@ A Flask-based web interface for phishing detection using machine learning
 
 import os
 import pandas as pd
-import numpy as np
-from flask import Flask, render_template, request, jsonify, redirect, url_for
+from flask import (
+    Flask,
+    render_template,
+    request,
+    jsonify,
+    redirect,
+    url_for,
+)
 from werkzeug.utils import secure_filename
 import plotly
 import plotly.graph_objs as go
-import plotly.express as px
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, classification_report
+from sklearn.metrics import (
+    accuracy_score,
+    precision_score,
+    recall_score,
+    f1_score,
+    confusion_matrix,
+)
 import joblib
 import json
 
@@ -27,9 +38,15 @@ app.config['ALLOWED_EXTENSIONS'] = {'csv'}
 # Create uploads folder if it doesn't exist
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
+
 def allowed_file(filename):
     """Check if file extension is allowed"""
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
+    return (
+        '.' in filename
+        and filename.rsplit('.', 1)[1].lower()
+        in app.config['ALLOWED_EXTENSIONS']
+    )
+
 
 def train_models(data):
     """Train all three models and return them with performance metrics"""
@@ -112,12 +129,18 @@ def create_visualizations(results):
     plots = {}
 
     # 1. Model Comparison Bar Chart
-    model_names = [results[m]['name'] for m in ['decision_tree', 'logistic_regression', 'random_forest']]
+    model_names = [
+        results[m]['name']
+        for m in ['decision_tree', 'logistic_regression', 'random_forest']
+    ]
     metrics = ['accuracy', 'precision', 'recall', 'f1_score']
 
     fig_comparison = go.Figure()
     for metric in metrics:
-        values = [results[m][metric] for m in ['decision_tree', 'logistic_regression', 'random_forest']]
+        values = [
+            results[m][metric]
+            for m in ['decision_tree', 'logistic_regression', 'random_forest']
+        ]
         fig_comparison.add_trace(go.Bar(
             name=metric.replace('_', ' ').title(),
             x=model_names,
@@ -184,7 +207,9 @@ def upload_file():
 
             # Validate data
             if 'CLASS_LABEL' not in data.columns and 'labels' not in data.columns:
-                return jsonify({'error': 'CSV must contain a "CLASS_LABEL" or "labels" column'}), 400
+                return jsonify(
+                    {'error': 'CSV must contain a "CLASS_LABEL" or "labels" column'}
+                ), 400
 
             # Train models
             models, results = train_models(data)
@@ -197,7 +222,7 @@ def upload_file():
                 joblib.dump(model, f'models/{model_name}.pkl')
 
             # Save results for display
-            with open('results.json', 'w') as f:
+            with open('results.json', 'w', encoding='utf-8') as f:
                 json.dump({'results': results, 'plots': plots}, f)
 
             return jsonify({
@@ -215,13 +240,16 @@ def upload_file():
 def results():
     """Display results page"""
     try:
-        with open('results.json', 'r') as f:
+        with open('results.json', 'r', encoding='utf-8') as f:
             data = json.load(f)
-        return render_template('results.html',
-                             results=data['results'],
-                             plots=data['plots'])
+        return render_template(
+            'results.html',
+            results=data['results'],
+            plots=data['plots']
+        )
     except FileNotFoundError:
         return redirect(url_for('index'))
+
 
 if __name__ == '__main__':
     # Create models directory if it doesn't exist

@@ -156,49 +156,148 @@ weighted avg       0.94      0.94      0.94      2000
 ## 💻 Installation & Usage
 
 ### Prerequisites
+- **Python 3.8+** (Python 3.10 or 3.11 recommended)
+- **pip** (Python package installer)
+- **git** (for cloning the repository)
+
+### Initial Setup
+
+#### 1. Clone the Repository
 ```bash
-Python 3.8+
-pip install numpy pandas scikit-learn matplotlib seaborn
+git clone https://github.com/khuynh22/SecureSense-A-Data-Driven-Framework-for-Phishing-Attack-Prevention.git
+cd SecureSense-A-Data-Driven-Framework-for-Phishing-Attack-Prevention
 ```
+
+#### 2. Create Virtual Environment (Recommended)
+
+**Windows (PowerShell):**
+```powershell
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+```
+
+**macOS/Linux:**
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+#### 3. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+This will install all required packages:
+- **Flask** (3.0.0) - Web framework
+- **pandas** (2.1.3) - Data manipulation
+- **numpy** (1.26.2) - Numerical computing
+- **scikit-learn** (1.3.2) - Machine learning algorithms
+- **plotly** (5.18.0) - Interactive visualizations
+- **matplotlib** (3.8.2) & **seaborn** (0.13.0) - Data visualization
+- **joblib** (1.3.2) - Model persistence
+- **jupyter** (optional) - For running notebooks
 
 ### Quick Start
 
-#### Option 1: Python Script
+#### Option 1: Web Application (Recommended)
+
+1. **Activate virtual environment** (if not already active):
+   ```powershell
+   # Windows
+   .venv\Scripts\Activate.ps1
+
+   # macOS/Linux
+   source .venv/bin/activate
+   ```
+
+2. **Start the Flask server:**
+   ```bash
+   python app.py
+   ```
+   You should see output like:
+   ```
+   * Running on http://127.0.0.1:5000
+   * Restarting with stat
+   * Debugger is active!
+   ```
+
+3. **Open your browser:**
+   Navigate to: `http://127.0.0.1:5000`
+
+4. **Upload and analyze:**
+   - Drag and drop `Phishing_Legitimate_full.csv` or click "Browse Files"
+   - Click "Analyze Dataset"
+   - Wait 10-30 seconds for model training
+   - View interactive results with performance metrics and visualizations
+
+5. **Stop the server:**
+   Press `CTRL+C` in the terminal
+
+#### Option 2: Python Script (Command Line)
 
 ```python
 # Load and prepare data
 import pandas as pd
 from sklearn import tree
+from sklearn.model_selection import train_test_split
 
 # Load dataset
 df = pd.read_csv('Phishing_Legitimate_full.csv')
 
-# Train Decision Tree model
-X = df.iloc[:, 1:-1]
-y = df.iloc[:, -1]
+# Prepare features and labels
+X = df.drop(['CLASS_LABEL'], axis=1)
+if 'id' in X.columns:
+    X = X.drop(['id'], axis=1)
+y = df['CLASS_LABEL']
 
-clf = tree.DecisionTreeClassifier(ccp_alpha=0.010)
-clf.fit(X, y)
+# Split data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Train Decision Tree model (optimized parameters)
+clf = tree.DecisionTreeClassifier(ccp_alpha=0.010, random_state=42)
+clf.fit(X_train, y_train)
+
+# Evaluate
+accuracy = clf.score(X_test, y_test)
+print(f"Test Accuracy: {accuracy:.4f}")
 
 # Predict on new data
 prediction = clf.predict(new_website_features)
 ```
 
-#### Option 2: Web Application
+#### Option 3: Jupyter Notebooks
 
-1. **Start the server:**
+1. **Ensure Jupyter is installed:**
    ```bash
-   .venv/bin/python app.py
+   pip install jupyter notebook
    ```
 
-2. **Open your browser:**
-   Navigate to: `http://127.0.0.1:5000`
+2. **Start Jupyter:**
+   ```bash
+   jupyter notebook
+   ```
 
-### Running Jupyter Notebooks
+3. **Open a notebook:**
+   - `Decision_Tree_for_Phishing_Attack.ipynb`
+   - `Phishing_Detection_Using_Logistic_Regression_and_Random_Forest_Classifier.ipynb`
 
-```bash
-jupyter notebook Decision_Tree_for_Phishing_Attack.ipynb
-```
+4. **Run cells sequentially** (Shift+Enter)
+
+### Troubleshooting
+
+**Issue: `ModuleNotFoundError: No module named 'flask'`**
+- Solution: Ensure virtual environment is activated and run `pip install -r requirements.txt`
+
+**Issue: Port 5000 already in use**
+- Solution: Change port in `app.py` line 265: `app.run(debug=True, port=5001)`
+
+**Issue: CSV upload fails**
+- Solution: Verify CSV contains `CLASS_LABEL` or `labels` column with binary values (0/1)
+
+**Issue: Models take too long to train**
+- Solution: Reduce dataset size or use a smaller `n_estimators` value for Random Forest
+
+For more details, see [`WEB_APP_GUIDE.md`](WEB_APP_GUIDE.md)
 
 ## 📁 Project Structure
 
